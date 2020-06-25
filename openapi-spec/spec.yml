@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: "PampaDevs-Service"
+  version: "1.0.0"
+  contact:
+    name: PampaDevs
+    email: pampadevs@gmail.com
+
+paths:
+  /users:
+    post:
+     summary: Create a new user
+     tags:
+       - user
+     requestBody: 
+       required: true
+       content: 
+         application/json:
+           schema: 
+            $ref: '#/components/schemas/user'
+     responses:
+       '200':
+         description: User Created
+    get:
+      operationId: Get all users
+      summary: Get all users
+      tags: 
+        - user
+      responses:
+        '200':
+          description: OK
+          content: 
+            application/json:
+              schema:
+               type: array
+               items: 
+                $ref: "#/components/schemas/user"
+                
+  /users/{userId}:
+    get:
+      operationId: Get user by Id
+      summary: Get user by Id
+      tags: 
+       - user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        principalLanguage:
+          type: string            
